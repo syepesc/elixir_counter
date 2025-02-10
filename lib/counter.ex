@@ -1,18 +1,24 @@
 defmodule Counter do
   @moduledoc """
-  Documentation for `Counter`.
+  Counter API. Basic functionality to interact with the Counter server.
   """
 
-  @doc """
-  Hello world.
+  @spec start(integer()) :: pid()
+  def start(initial_count) do
+    spawn(fn -> Counter.Server.run(initial_count) end)
+  end
 
-  ## Examples
+  @spec tick(pid()) :: {:thick, pid()}
+  def tick(pid) do
+    send(pid, {:tick, self()})
+  end
 
-      iex> Counter.hello()
-      :world
+  @spec state(pid()) :: integer()
+  def state(pid) do
+    send(pid, {:state, self()})
 
-  """
-  def hello do
-    :world
+    receive do
+      {:count, value} -> value
+    end
   end
 end

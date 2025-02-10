@@ -1,21 +1,40 @@
 # Counter
 
-**TODO: Add description**
+The first and most simple project from the book [Designing Elixir Systems with OTP](https://pragprog.com/titles/jgotp/designing-elixir-systems-with-otp/), a Counter!
 
-## Installation
+Is not as simple as `counter = count + 1`. This exercise demonstrate the most basic way of thinking and take away of the book: Do Fun Things with Big, Loud Worker-Bees.
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `counter` to your list of dependencies in `mix.exs`:
+## How to run the project?
 
-```elixir
-def deps do
-  [
-    {:counter, "~> 0.1.0"}
-  ]
-end
+- Install [mise](https://mise.jdx.dev/getting-started.html) (previously `rtx`) , `cd` into the project directory and run:
+
+```bash
+mise install
 ```
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at <https://hexdocs.pm/counter>.
+- `cd` into the project directory and run the following to install and setup dependencies:
 
+```bash
+mix deps.get
+```
+
+```bash
+mix compile
+```
+
+- Run the project with
+
+```bash
+iex -S mix
+```
+
+- Use the project API
+
+```elixir
+counter_pid = Counter.Core.inc(1)
+
+Counter.tick(counter_pid)
+Counter.tick(counter_pid)
+
+Counter.state(counter_pid)
+```
